@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Donation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #fafafa;
+            border-right: 1px solid #e0e0e0;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .nav-item.active {
+            background-color: #c9ddf5;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: 40px;
+            width: calc(100% - 200px);
+        }
+
+        .donation-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background-color: #f0f0f0;
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 35px;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .amount-options {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .amount-btn {
+            padding: 12px 24px;
+            background-color: white;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .amount-btn:hover {
+            border-color: #60a5fa;
+        }
+
+        .amount-btn.active {
+            background-color: #bfdbfe;
+            border-color: #3b82f6;
+        }
+
+        .custom-amount-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            margin-top: 20px;
+            display: block;
+        }
+
+        .custom-amount-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: white;
+            margin-bottom: 25px;
+        }
+
+        .custom-amount-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .payment-methods {
+            margin-bottom: 25px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .payment-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .payment-option label {
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .payment-icon {
+            font-size: 16px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .donate-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 15px;
+        }
+
+        .donate-btn:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">✉️</div>
+            <div class="logo-text">Logo Nusarupa Hub</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item" onclick="window.location.href='dashboard.html'">
+                <span class="nav-icon">📊</span>
+                <span>Dashboard</span>
+            </li>
+            <li class="nav-item" onclick="window.location.href='kanban.html'">
+                <span class="nav-icon">📋</span>
+                <span>Kanban Board</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-icon">▶️</span>
+                <span>Video Education</span>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-icon">💲</span>
+                <span>Donation</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-icon">❓</span>
+                <span>Help</span>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="donation-container">
+            <h1>Make a Donation</h1>
+            <p class="subtitle">Donasi untuk rakyat yang terkena banjir di Indonesia</p>
+
+            <label class="section-label">Pre-set Donation Amounts:</label>
+            <div class="amount-options">
+                <button class="amount-btn" onclick="selectAmount(10)">$10</button>
+                <button class="amount-btn active" onclick="selectAmount(25)">$25</button>
+                <button class="amount-btn" onclick="selectAmount(50)">$50</button>
+            </div>
+
+            <label class="custom-amount-label">Or enter custom amount:</label>
+            <input type="text" class="custom-amount-input" placeholder="$" id="customAmount">
+
+            <label class="section-label">Payment Method:</label>
+            <div class="payment-methods">
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="creditCard" checked>
+                    <label for="creditCard">
+                        Credit Card
+                        <span class="payment-icon">💳</span>
+                    </label>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="paypal">
+                    <label for="paypal">
+                        PayPal
+                        <span class="payment-icon">🅿️</span>
+                    </label>
+                </div>
+                <div class="payment-option">
+                    <input type="radio" name="payment" id="stripe">
+                    <label for="stripe">
+                        Stripe
+                        <span class="payment-icon">💲</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-group">
+                    <label for="cvc">CVC</label>
+                    <input type="text" id="cvc" placeholder="XXX" maxlength="3">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nameOnCard">Name on Card</label>
+                <input type="text" id="nameOnCard" placeholder="John Doe">
+            </div>
+
+            <button class="donate-btn" onclick="processDonation()">Donate Now</button>
+        </div>
+    </main>
+
+    <script>
+        // Format card number with spaces
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // Only allow numbers in CVC
+        document.getElementById('cvc').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // Select amount function
+        function selectAmount(amount) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.amount-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Clear custom amount
+            document.getElementById('customAmount').value = '';
+        }
+
+        // Custom amount input
+        document.getElementById('customAmount').addEventListener('input', function(e) {
+            if (e.target.value) {
+                // Remove active class from preset buttons
+                document.querySelectorAll('.amount-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+
+        // Process donation
+        function processDonation() {
+            const cardNumber = document.getElementById('cardNumber').value;
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvc = document.getElementById('cvc').value;
+            const nameOnCard = document.getElementById('nameOnCard').value;
+            
+            // Get selected amount
+            let amount = document.getElementById('customAmount').value;
+            if (!amount) {
+                const activeBtn = document.querySelector('.amount-btn.active');
+                amount = activeBtn ? activeBtn.textContent : '';
+            }
+            
+            // Basic validation
+            if (!amount || !cardNumber || !expiryDate || !cvc || !nameOnCard) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (cardNumber.replace(/\s/g, '').length !== 16) {
+                alert('Please enter a valid card number');
+                return;
+            }
+            
+            if (cvc.length !== 3) {
+                alert('Please enter a valid CVC');
+                return;
+            }
+            
+            alert('Thank you for your donation of ' + amount + '!');
+            
+            // Reset form
+            document.getElementById('cardNumber').value = '';
+            document.getElementById('expiryDate').value = '';
+            document.getElementById('cvc').value = '';
+            document.getElementById('nameOnCard').value = '';
+            document.getElementById('customAmount').value = '';
+        }
+    </script>
+</body>
+</html>
