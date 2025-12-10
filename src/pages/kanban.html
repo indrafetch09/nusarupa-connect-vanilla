@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -297,6 +298,7 @@
         }
     </style>
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="logo">
@@ -341,7 +343,7 @@
                 <div class="column-header">
                     To Do <span class="column-count">(3)</span>
                 </div>
-
+                // componenet card
                 <div class="task-card">
                     <div class="task-title">Design Landing Page Mockups</div>
                     <div class="task-footer">
@@ -458,7 +460,7 @@
         function scrollCarousel(direction) {
             const grid = document.querySelector('.video-grid');
             const scrollAmount = 300;
-            
+
             if (direction === 'left') {
                 grid.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             } else {
@@ -472,12 +474,12 @@
 
         taskCards.forEach(card => {
             card.draggable = true;
-            
+
             card.addEventListener('dragstart', (e) => {
                 card.classList.add('dragging');
                 e.dataTransfer.effectAllowed = 'move';
             });
-            
+
             card.addEventListener('dragend', () => {
                 card.classList.remove('dragging');
             });
@@ -488,7 +490,7 @@
                 e.preventDefault();
                 const draggingCard = document.querySelector('.dragging');
                 const afterElement = getDragAfterElement(column, e.clientY);
-                
+
                 if (afterElement == null) {
                     column.appendChild(draggingCard);
                 } else {
@@ -498,12 +500,12 @@
         });
 
         function getDragAfterElement(column, y) {
-            const draggableElements = [...column.querySelectorAll('.task-card:not(.dragging)')];
-            
+            const draggableElements = [ ...column.querySelectorAll('.task-card:not(.dragging)') ];
+
             return draggableElements.reduce((closest, child) => {
                 const box = child.getBoundingClientRect();
                 const offset = y - box.top - box.height / 2;
-                
+
                 if (offset < 0 && offset > closest.offset) {
                     return { offset: offset, element: child };
                 } else {
@@ -514,7 +516,7 @@
 
         // Add card functionality
         const addCardBtns = document.querySelectorAll('.add-card-btn');
-        
+
         addCardBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const column = e.target.closest('.kanban-column');
@@ -528,9 +530,9 @@
                         <span class="task-date">Today</span>
                     </div>
                 `;
-                
+
                 column.insertBefore(newCard, btn);
-                
+
                 // Update counter
                 updateColumnCount(column);
             });
@@ -544,4 +546,5 @@
         }
     </script>
 </body>
+
 </html>
